@@ -10,7 +10,7 @@ jobs:
     name: Docker Image
     runs-on: ubuntu-latest
     env:
-      GITHUB_PACKAGE: docker.pkg.github.com/raphapr/linuxkit-docker/linuxkit
+      GITHUB_PACKAGE: ghcr.io/raphapr/linuxkit
     steps:
       - uses: actions/checkout@v2
       - name: Build Docker image
@@ -21,6 +21,6 @@ jobs:
       - name: Tag for Github Packages
         run: docker tag linuxkit:${{ github.sha }} $GITHUB_PACKAGE:${{ github.sha }}
       - name: Docker Login Github
-        run: docker login -u publisher -p ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com
+        run: docker login -u publisher -p ${{ secrets.GITHUB_TOKEN }} ghcr.io
       - name: Publish Docker image Github
         run: docker push $GITHUB_PACKAGE:${{ github.sha }}
